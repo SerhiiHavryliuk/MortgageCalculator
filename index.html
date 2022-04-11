@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>MyBanking</title>
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
@@ -16,8 +16,9 @@
             <a href="calc.html">Calculator</a>
         </header>
 
-        <h1>Banks</h1>
+        <h1>Banks management page</h1>
 
+        <!-- List of banks -->
         <div class="bank-table">
             <h4>List of banks</h4>
             <div class="tableTitle">
@@ -31,13 +32,14 @@
             </div>
             <ol class="bank-list"> </ol>
         </div>
+        <!-- List of banks -->
         
         <!-- кнопка очистки LocalStorage -->
         <!-- <button class="clear">Clear All</button> -->
     </div>
 
 
-    <!-- The Modal -->
+    <!-- The Modal add new bank -->
     <div id="myModal" class="modal">
 
         <!-- Modal content -->
@@ -55,10 +57,9 @@
                 <button id="btnEditNewBank">edit</button>
             </form>
         </div>
-
     </div>
+    <!-- The Modal add new bank -->
 
     <script src="js/index.js"></script>
 </body>
-
 </html>
