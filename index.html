@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MyBanking</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+    <div class="small-container">
+        <header>
+            <p>Logo</p>
+            <a href="index.html">Banks</a>
+            <a href="calc.html">Calculator</a>
+        </header>
+
+        <h1>Banks</h1>
+
+        <div class="bank-table">
+            <h4>List of banks</h4>
+            <div class="tableTitle">
+                <p class="bankName">Bank name</p>
+                <p class="InterestRate">Interest rate</p>
+                <p class="MaximumLoan">Maximum loan</p>
+                <p class="MinimumDownPayment">Minimum down payment</p>
+                <p class="LoanTerm">Loan term</p>
+                <!-- Trigger/Open The Modal -->
+                <button id="btnAddNewBank">add new bank</button>
+            </div>
+            <ol class="bank-list"> </ol>
+        </div>
+        
+        <!-- кнопка очистки LocalStorage -->
+        <!-- <button class="clear">Clear All</button> -->
+    </div>
+
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Some text in the Modal..</p>
+            <form>
+                <input class="inputNewBank" type="text" placeholder="Bank Name" required>
+                <input class="inputNewBank" type="number" placeholder="Interest Rate" required>
+                <input class="inputNewBank" type="number" placeholder="Maximum Loan" required>
+                <input class="inputNewBank" type="number" placeholder="Minimum Down Payment" required>
+                <input class="inputNewBank" type="number" placeholder="Loan Term" required>
+
+                <input id="btnAddNewBank" type="submit" value="send">
+                <button id="btnEditNewBank">edit</button>
+            </form>
+        </div>
+
+    </div>
+
+    <script src="js/index.js"></script>
+</body>
+
+</html>
