@@ -5,7 +5,7 @@ Web application where users can create banks and calculate mortgagepayments usin
 
  ![Demos Screenshots](img/Page-Banks.png)
  
-  ![Demos Screenshots](img/Page-Calc.png)
+ ![Demos Screenshots](img/Page-Calc.png)
 
 ### Start the app open file in browser
 ```bash
