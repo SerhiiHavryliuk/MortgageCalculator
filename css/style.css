@@ -837,7 +837,6 @@ p{
     margin: 0px;
 }
 
-
 .bank-table {
     padding: 25px;
     color: #000;
@@ -921,12 +920,7 @@ p{
 }
 
 
-
-
-
-
-
-/* Modal */
+/* Modal add new Bank*/
 /* The Modal (background) */
 .modal {
     display: none; /* Hidden by default */
@@ -997,5 +991,3 @@ p{
     color: #d33c40;
     font-size: 1.2rem;
 }
-
-.pageCalc

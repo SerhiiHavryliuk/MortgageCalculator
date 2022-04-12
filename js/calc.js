@@ -1,29 +1,40 @@
-const selectBank = document.querySelector('.selectBank');
+// ------------------------------------------------------------------------------
+// Переменные
+// ------------------------------------------------------------------------------
 
+const selectBank = document.querySelector('.selectBank'); // select
+
+// ползунки
 const inputInitialLoan = document.querySelector('.inputInitialLoan');
 const inputDownPayment = document.querySelector('.inputDownPayment');
 const inputTotalMouns = document.querySelector('.inputTotalMouns');
 
-const totalMouns = document.querySelector('.totalMouns');
-const btnCalc = document.querySelector('.btnCalc');
-const resultCalc = document.querySelector('.resultCalc');
-
-const localStoreListBanks = "banksData";
-
-const bankList = document.querySelector('.bankInfo');
+const btnCalc = document.querySelector('.btnCalc'); // кнопка calc
+const resultCalc = document.querySelector('.resultCalc'); // контейнер куда будем вставлять  результат расчетов
+const localStoreListBanks = "banksData"; // название переменной в localStorage, куда записываем все данные банков
+const bankList = document.querySelector('.bankInfo');// контейнер куда будем вставлять данные выбраного банка
 
 
-window.addEventListener('load', init);
+// ------------------------------------------------------------------------------
+// Обработчики событий
+// ------------------------------------------------------------------------------
 
-selectBank.addEventListener('change', changeBank);
+window.addEventListener('load', init);// в init выполняем первоначальнуюинициализацию данных на странице
+selectBank.addEventListener('change', changeBank); // отслеживаем изменения банка в компоненте select
 
+// отслеживаем изменения значений в ползунках
 inputInitialLoan.addEventListener('change', changeValue);
 inputDownPayment.addEventListener('change', changeValue);
 inputTotalMouns.addEventListener('change', changeValue);
 
-btnCalc.addEventListener('click', calcMounthlyPayment);
+btnCalc.addEventListener('click', calcMounthlyPayment); // отслеживаем клик по кнопке Calc
 
 
+// ------------------------------------------------------------------------------
+// Функции
+// ------------------------------------------------------------------------------
+
+// первоначальная инициализация данных на странице
 function init() {
     // проверка наличия в localStore списка банков
     if (localStorage.getItem(localStoreListBanks)) {
@@ -32,8 +43,6 @@ function init() {
 
         // загружаем текущий список банков и преобразовываем его в массив
         let arrayListBanks = stringToArr(readDataLocalStorga());
-
-        console.log(arrayListBanks);
 
         // Содаем option и помещаем туда название банка
         for (let i = 0; i < arrayListBanks.length; i++) {
@@ -51,8 +60,9 @@ function init() {
     }
 }
 
+
+// функция для отображения банка на стр
 function showBank(newBank, dataIdBank) {
-    console.log("showBank");
 
     // Создаем элемент списка куда будет помещатся вся инфа про банк
     const li = document.createElement('li');
@@ -68,8 +78,9 @@ function showBank(newBank, dataIdBank) {
     bankList.appendChild(li);
 }
 
+
+// функция для изминения банка на стр
 function changeBank(e) {
-    console.log("changeBank");
 
     // загружаем текущий список банков и преобразовываем его в массив
     let arrayListBanks = stringToArr(readDataLocalStorga());
@@ -90,10 +101,9 @@ function changeBank(e) {
     setCurrentValueInRange();
 }
 
+
 // функция меняем значение взависимости от изменений на ползунке
 function changeValue(e) {
-    console.log("changeValue");
-
     let parentElement = e.target.parentNode;
     let notes = null;
     for (var i = 0; i < parentElement.childNodes.length; i++) {
@@ -105,32 +115,28 @@ function changeValue(e) {
     }
 }
 
+
+// функция для расчета месячного платежа
 function calcMounthlyPayment() {
-    console.log("calcMounthlyPayment");
     let resultMounthlyPayment = '';
 
     // считываем значения с инпутов, которые ввел пользователь
     let userInitialLoan = document.getElementById('userInitialLoan').value;
     let userDownPayment = document.getElementById('userDownPayment').value;
     let userTotalMouns = document.getElementById('userTotalMouns').value;
-    console.log(userInitialLoan, userDownPayment, userTotalMouns);
 
     // считываем текущее значение банака с селект
     let bankID = selectBank.value;
-    console.log(bankID)
 
     // загружаем текущий список банков и преобразовываем его в массив
     let arrayListBanks = stringToArr(readDataLocalStorga());
     let bankChoseUser = arrayListBanks[bankID];
-    console.log(bankChoseUser)
 
     // считываем значения с текущего банка (который показан нв стр.)
     let interestRate = bankChoseUser[1];
     let maximumLoan = bankChoseUser[2];
     let minimumDownPayment = bankChoseUser[3];
     let loanTerm = bankChoseUser[4];
-    console.log("-----------------");
-    console.log(interestRate, maximumLoan, minimumDownPayment, loanTerm);
 
     // подставляем все значения в форму
     resultMounthlyPayment = (userInitialLoan * (interestRate / 12) * Math.pow(1 + interestRate / 12, userTotalMouns)) / (Math.pow(1 + interestRate / 12, userTotalMouns) - 1);
@@ -138,6 +144,7 @@ function calcMounthlyPayment() {
 
     return resultMounthlyPayment;
 }
+
 
 // Функция для считывания данных с localStorage
 // считываем значение 'localStoreListBanks'
@@ -159,23 +166,19 @@ function stringToArr(string) {
 
 // устанавливаем максимальное и минимально значение в ползунках в зависимости отвыбраного банка
 function setValuesInputsRang() {
-    console.log("<<<<<<<<setValuesInputsRang>>>>>>>>>>");
+
     // считываем текущее значение банака с селект
     let bankID = selectBank.value;
-    console.log(bankID)
 
     // загружаем текущий список банков и преобразовываем его в массив
     let arrayListBanks = stringToArr(readDataLocalStorga());
     let bankChoseUser = arrayListBanks[bankID];
-    console.log(bankChoseUser);
 
     // считываем значения с текущего банка (который показан нв стр.)
     let interestRate = bankChoseUser[1];
     let maximumLoan = bankChoseUser[2];
     let minimumDownPayment = bankChoseUser[3];
     let loanTerm = bankChoseUser[4];
-    console.log("-----------------");
-    console.log(interestRate, maximumLoan, minimumDownPayment, loanTerm);
 
     // заменяем максимальное значение в ползунках
     // устанавливаем максимальную сумму кредита

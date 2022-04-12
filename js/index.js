@@ -1,19 +1,10 @@
-// https://www.taniarascia.com/how-to-use-local-storage-with-javascript/
-// https://taniarascia.github.io/sandbox/tab/
-// https://github.com/taniarascia/sandbox/blob/master/tab/css/primitive.css
-
-// modal
-// https://www.w3schools.com/howto/howto_css_modals.asp
-
-// https://ru.hexlet.io/qna/javascript/questions/kak-preobrazovat-nodelist-v-massiv-js
-
-
 // ------------------------------------------------------------------------------
 // Переменные
 // ------------------------------------------------------------------------------
 
 const form = document.querySelector('form'); // форма
 
+// кнопки
 const btnAddNewBank = document.getElementById("btnAddNewBank");
 const btnEditNewBank = document.getElementById("btnEditNewBank");
 const btnSaveNewBank = document.getElementById("btnSaveNewBank");
@@ -21,7 +12,7 @@ const btnClear = document.querySelector('.clear'); // кнопка для очи
 
 const bankList = document.querySelector('.bank-list'); // контейнер куда будем добавлять впиок банков
 const arrInputsValuesForm = document.querySelectorAll('.inputNewBank'); // динамический список всех всех инпутов формы
-const localStoreListBanks = "banksData";
+const localStoreListBanks = "banksData"; // название переменной в localStorage, куда записываем все данные банков
 
 let arrListOfBanks = []; // массив в котором сохраняем список банков
 let arrEditBank = [];// переменная в которой будем хранить измененные данные банка
@@ -68,13 +59,8 @@ function deleteBank(arrBanks, indexDeleteBank) {
     return newArrBanks;
 }
 
-
-
-
 // Функция для добавления банка
 function addNewBank(newBank, dataIdBank) {
-    console.log("Функция добавления банка");
-    console.log("dataIdBank => " + dataIdBank);
 
     // Создаем элемент списка куда будет помещатся вся инфа про банк
     const li = document.createElement('li');
@@ -141,19 +127,15 @@ function clearLocalStorage(){
 // если ничего нет то указывае пустой массив
 window.addEventListener('load', function () {
     let data = [];
-    console.log("Start");
 
     // проверка наличия в localStore списка банков
     if (localStorage.getItem(localStoreListBanks)) {
-        console.log("LocalStor is not empty");
         // считываем значение с LocalStorage
         let currentArrBanks = readDataLocalStorga();
         // преобразовываем строку в массив и перезаписываем массив с новыми значениями
         arrListOfBanks = stringToArr(currentArrBanks);
         // показываем список банков на стр с новыми значениями  
         showTableBanks(arrListOfBanks);
-        console.log("arrListOfBanks");
-        console.log(arrListOfBanks);
     } 
 
 })
@@ -162,19 +144,16 @@ form.addEventListener('submit', function (e) {
     e.preventDefault();
 
     // Считываем значения с инпутов и формируем массив для добавления в LocalStorage
-    console.log(readDataForm())
     let arrDataNewBank = readDataForm();
     let idBank = '';
 
     arrListOfBanks.push(arrDataNewBank);   
     idBank = arrListOfBanks.length - 1
-    console.log("idBank" + idBank)
     localStorage.setItem(localStoreListBanks, JSON.stringify(arrListOfBanks));
     addNewBank(arrDataNewBank, idBank);
 
     //очистка полей
     clearDataForm();
-
 
     //закрываем модальное окно
     modal.style.display = "none";
@@ -195,8 +174,6 @@ bankList.addEventListener('click', function (e) {
 
     // 1 событие - удаление банка
     if (e.target.classList.contains("deleteBank")) {
-        console.log("deleteBank");
-        console.log(e.target.parentNode.getAttribute('data-id'));
         let arrIdBank = e.target.parentNode.getAttribute('data-id');
         
         // считываем значение с LocalStorage
@@ -204,13 +181,8 @@ bankList.addEventListener('click', function (e) {
         // преобразовываем строку в массив и перезаписываем массив с новыми значениями
         arrListOfBanks = stringToArr(currentArrBanks);
 
-        console.log("before arrListOfBanks");
-        console.log(arrListOfBanks);
-
         // удаляем банк с определенным индексом
         arrListOfBanks.splice(arrIdBank,1);
-        console.log("after arrListOfBanks");
-        console.log(arrListOfBanks);
 
         // Записываем значение в localStorage
         // преобразовываем массив в строку
@@ -229,9 +201,7 @@ bankList.addEventListener('click', function (e) {
 
     // 2 событие - редактирование банка
     if (e.target.classList.contains("editBank")) {
-        console.log("editBank");
-        console.log(e.target.parentNode.getAttribute('data-id'));
-    
+ 
         // показываем модальное окно
         showModal();
         
@@ -244,13 +214,8 @@ bankList.addEventListener('click', function (e) {
         // преобразовываем строку в массив и перезаписываем массив с новыми значениями
         arrListOfBanks = stringToArr(currentArrBanks);
 
-        console.log("before arrListOfBanks");
-        console.log(arrListOfBanks);
-
         // извлекаем банк с определенным индексом
         arrEditBank = arrListOfBanks[editIdBank];
-        console.log("editBank");
-        console.log(editIdBank);
 
         // заполняем поля форми из локалсторедж
         arrInputsValuesForm.forEach((nodeInput,index) => {
@@ -260,15 +225,11 @@ bankList.addEventListener('click', function (e) {
         // скрываем кнопку ОК показываем кнопку EDIT
         btnEditNewBank.style.display = "block";
         btnSaveNewBank.style.display = "none";
-
-        console.log("Serhii---------");
-
     }
 })
 
 
 btnEditNewBank.addEventListener('click',function(e){
-    console.log("Click btn EDIT");
     e.preventDefault();
 
     // вызываем функцию для редактирования банка и передаем необходимые парпметрф
@@ -277,8 +238,6 @@ btnEditNewBank.addEventListener('click',function(e){
 
 // Функция для редактирования банка
 function editBank( arrEditBank, indexEditBank) {
-    console.log("--------------------------");
-    console.log("<<< function editBank >>>");
 
     // считываем значение с LocalStorage
     let currentArrBanks = readDataLocalStorga();
@@ -287,14 +246,10 @@ function editBank( arrEditBank, indexEditBank) {
     arrListOfBanks = stringToArr(currentArrBanks);
 
     // Считываем значения с инпутов и формируем массив для добавления в LocalStorage
-    console.log(readDataForm())
     let arrDataNewBank = readDataForm();
 
     // // перезаписываем основной массив
     arrListOfBanks[indexEditBank] = arrDataNewBank;
-
-    console.log("Serhii after change arr: arrListOfBanks"); 
-    console.log(arrListOfBanks);
 
     // преобразовываем массив в строку
     let newEditedArr = arrToString(arrListOfBanks);
