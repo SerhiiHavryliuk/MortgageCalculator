@@ -13,13 +13,17 @@
 // ------------------------------------------------------------------------------
 
 const form = document.querySelector('form'); // форма
+
 const btnAddNewBank = document.getElementById("btnAddNewBank");
 const btnEditNewBank = document.getElementById("btnEditNewBank");
-const buttonClear = document.querySelector('.clear'); // кнопка для очистки талицы банков
+const btnSaveNewBank = document.getElementById("btnSaveNewBank");
+const btnClear = document.querySelector('.clear'); // кнопка для очистки талицы банков
+
 const bankList = document.querySelector('.bank-list'); // контейнер куда будем добавлять впиок банков
 const arrInputsValuesForm = document.querySelectorAll('.inputNewBank'); // динамический список всех всех инпутов формы
+const localStoreListBanks = "banksData";
+
 let arrListOfBanks = []; // массив в котором сохраняем список банков
-const localStoreListBanks = "banksData"
 let arrEditBank = [];// переменная в которой будем хранить измененные данные банка
 let editIdBank = '';
 
@@ -151,6 +155,7 @@ window.addEventListener('load', function () {
         console.log("arrListOfBanks");
         console.log(arrListOfBanks);
     } 
+
 })
 
 form.addEventListener('submit', function (e) {
@@ -178,7 +183,7 @@ form.addEventListener('submit', function (e) {
 
 
 // Очистка localStorage
-// buttonClear.addEventListener('click', function () {
+// btnClear.addEventListener('click', function () {
 //     clearLocalStorage();
 // });
 
@@ -254,10 +259,12 @@ bankList.addEventListener('click', function (e) {
 
         // скрываем кнопку ОК показываем кнопку EDIT
         btnEditNewBank.style.display = "block";
-        btnAddNewBank.style.display = "none"
+        btnSaveNewBank.style.display = "none";
+
+        console.log("Serhii---------");
 
     }
-});
+})
 
 
 btnEditNewBank.addEventListener('click',function(e){
@@ -309,13 +316,13 @@ function editBank( arrEditBank, indexEditBank) {
 let modal = document.getElementById("myModal");
 
 // Get the button that opens the modal
-let btn = document.getElementById("btnAddNewBank");
+let btnOpenModal = document.getElementById("btnAddNewBank");
 
 // Get the <span> element that closes the modal
 let span = document.getElementsByClassName("close")[0];
 
 // When the user clicks the button, open the modal 
-btn.addEventListener('click', function () {
+btnOpenModal.addEventListener('click', function () {
     showModal();
 })
 

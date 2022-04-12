@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <div class="small-container">
+    <div class="small-container pageCalc">
         <header>
             <p>Logo</p>
             <a href="index.html">Banks</a>
@@ -39,30 +39,30 @@
                 <p class="LoanTerm">Loan term</p>
             </div>
             <ol class="bankInfo"> </ol>
-            <br> <br>
-            <hr>
-
-    
+            <br>
+        
             <div class="container">
                 <p> Initial loan</p>
-                <input class="inputInitialLoan" type="range" id="points" name="points" min="0" max="10">
-                <div class="inputValue">0</div>
+                <input class="inputInitialLoan" type="range" id="userInitialLoan" name="points" min="1" max="10">
+                <div class="inputValue" id="valueInitialLoan">0</div>
             </div>
     
             <div class="container">
                 <p> Down payment</p>
-                <input class="inputDownPayment" type="range" id="points" name="points" min="0" max="10">
-                <div class="inputValue">0</div>
+                <input class="inputDownPayment" type="range" id="userDownPayment" name="points" min="1" max="10">
+                <div class="inputValue" id="valueDownPayment">0</div>
             </div>
     
             <div class="container">
                 <p> Total mouns</p>
-                <input class="inputTotalMouns" type="range" id="points" name="points" min="0" max="10">
-                <div class="inputValue">0</div>
+                <input class="inputTotalMouns" type="range" id="userTotalMouns" name="points" min="1" max="10">
+                <div class="inputValue" id="valueTotalMouns">0</div>
             </div>
+
+            <hr>
     
-            <div class="container">
-                <p> Result: <span class="resultCalc"></span></p>
+            <div class="container calcResult">
+                <p> Mounthly payment: <span class="resultCalc"></span></p>
                 <button class="btnCalc"> Calc</button>
             </div>
 
