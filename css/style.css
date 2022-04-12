@@ -958,3 +958,29 @@ p{
     text-decoration: none;
     cursor: pointer;
   }
+
+
+  /* Page calc */
+  .container{
+      display: flex;
+      justify-content: space-around;
+      margin: 20px 0;
+  }
+
+  .container p{
+      max-width: 30%;
+      width: 100%;
+      font-weight: bold;
+  }
+  .container div{
+    max-width: 10%;
+    width: 100%;
+    font-weight: bold;
+    color: #0250bc;
+    text-align: center;
+}
+
+  .container p{
+    max-width: 30%;
+    width: 100%;
+}

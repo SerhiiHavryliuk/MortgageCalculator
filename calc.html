@@ -18,11 +18,62 @@
 
         <h1>Mortgage calculator page</h1>
 
-        <div class="bank-table">
-            <h4>List of banks</h4>
 
-            <ol class="bank-list"> </ol>
+
+        <div class="bank-table">
+            <!-- <h4>List of banks</h4> -->
+
+            <div class="container">
+                <p> Choose bank</p>
+                <select class="selectBank" name="select"> <!--Supplement an id here instead of using 'name'-->
+                    <option value="value1">Please add bain in Banks management page</option>
+                    <option value="value2"> 2Please add bain in Banks management page</option>
+                </select>
+            </div>
+
+            <div class="tableTitle">
+                <p class="bankName">Bank name</p>
+                <p class="InterestRate">Interest rate</p>
+                <p class="MaximumLoan">Maximum loan</p>
+                <p class="MinimumDownPayment">Minimum down payment</p>
+                <p class="LoanTerm">Loan term</p>
+            </div>
+            <ol class="bankInfo"> </ol>
+            <br> <br>
+            <hr>
+
+    
+            <div class="container">
+                <p> Initial loan</p>
+                <input class="inputInitialLoan" type="range" id="points" name="points" min="0" max="10">
+                <div class="inputValue">0</div>
+            </div>
+    
+            <div class="container">
+                <p> Down payment</p>
+                <input class="inputDownPayment" type="range" id="points" name="points" min="0" max="10">
+                <div class="inputValue">0</div>
+            </div>
+    
+            <div class="container">
+                <p> Total mouns</p>
+                <input class="inputTotalMouns" type="range" id="points" name="points" min="0" max="10">
+                <div class="inputValue">0</div>
+            </div>
+    
+            <div class="container">
+                <p> Result: <span class="resultCalc"></span></p>
+                <button class="btnCalc"> Calc</button>
+            </div>
+
+
         </div>
+
+        
+
+        
+        
+        
         
     </div>
 
