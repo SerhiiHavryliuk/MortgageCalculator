@@ -1,18 +1,16 @@
+// пример калькулятор для тестирования 
+// https://www.calculator.net/payment-calculator.html
+
 // ------------------------------------------------------------------------------
 // Переменные
 // ------------------------------------------------------------------------------
 
 const selectBank = document.querySelector('.selectBank'); // select
-
-// ползунки
-const inputInitialLoan = document.querySelector('.inputInitialLoan');
-const inputDownPayment = document.querySelector('.inputDownPayment');
-const inputTotalMouns = document.querySelector('.inputTotalMouns');
-
 const btnCalc = document.querySelector('.btnCalc'); // кнопка calc
 const resultCalc = document.querySelector('.resultCalc'); // контейнер куда будем вставлять  результат расчетов
 const localStoreListBanks = "banksData"; // название переменной в localStorage, куда записываем все данные банков
 const bankList = document.querySelector('.bankInfo');// контейнер куда будем вставлять данные выбраного банка
+const messageError = document.querySelector('.calcEror');
 
 
 // ------------------------------------------------------------------------------
@@ -21,12 +19,6 @@ const bankList = document.querySelector('.bankInfo');// контейнер ку�
 
 window.addEventListener('load', init);// в init выполняем первоначальнуюинициализацию данных на странице
 selectBank.addEventListener('change', changeBank); // отслеживаем изменения банка в компоненте select
-
-// отслеживаем изменения значений в ползунках
-inputInitialLoan.addEventListener('change', changeValue);
-inputDownPayment.addEventListener('change', changeValue);
-inputTotalMouns.addEventListener('change', changeValue);
-
 btnCalc.addEventListener('click', calcMounthlyPayment); // отслеживаем клик по кнопке Calc
 
 
@@ -54,10 +46,10 @@ function init() {
 
         // показываем в информацию по первому банку
         showBank(arrayListBanks, 0);
-
-        // устанавливаем значения ползунков из выбраного банка
-        setValuesInputsRang()
     }
+
+    // по умолчанию скрываем поле с ошибкой
+    hideError();
 }
 
 
@@ -93,28 +85,7 @@ function changeBank(e) {
 
     // показываем под селектом информацию по первому банку
     showBank(arrayListBanks, valueSelect);
-
-    // устанавливаем парметры в ползунки с данных банка
-    setValuesInputsRang();
-
-    // устанавливаем первоначальные значения в ползунках и показываем значения
-    setCurrentValueInRange();
 }
-
-
-// функция меняем значение взависимости от изменений на ползунке
-function changeValue(e) {
-    let parentElement = e.target.parentNode;
-    let notes = null;
-    for (var i = 0; i < parentElement.childNodes.length; i++) {
-        if (parentElement.childNodes[i].className == "inputValue") {
-            notes = parentElement.childNodes[i];
-            notes.innerHTML = e.target.value;
-            break;
-        }
-    }
-}
-
 
 // функция для расчета месячного платежа
 function calcMounthlyPayment() {
@@ -133,14 +104,37 @@ function calcMounthlyPayment() {
     let bankChoseUser = arrayListBanks[bankID];
 
     // считываем значения с текущего банка (который показан нв стр.)
-    let interestRate = bankChoseUser[1];
-    let maximumLoan = bankChoseUser[2];
-    let minimumDownPayment = bankChoseUser[3];
-    let loanTerm = bankChoseUser[4];
+    let interestRate = parseInt(bankChoseUser[1], 10);
+    let maximumLoan = parseInt(bankChoseUser[2], 10);
+    let minimumDownPayment = parseInt(bankChoseUser[3], 10);
+    let loanTerm = parseInt(bankChoseUser[4], 0);
 
-    // подставляем все значения в форму
-    resultMounthlyPayment = (userInitialLoan * (interestRate / 12) * Math.pow(1 + interestRate / 12, userTotalMouns)) / (Math.pow(1 + interestRate / 12, userTotalMouns) - 1);
-    resultCalc.innerHTML = resultMounthlyPayment.toFixed(2);
+    // покаскрываем тескт ошибки
+    hideError();
+    // очищаем поле ответа
+    clearHTMLContainer(resultCalc);
+
+    // проверка правильности заполнения полей формы
+    if((userInitialLoan >= minimumDownPayment) && (userInitialLoan <= maximumLoan) && (userTotalMouns > 0) && (userTotalMouns <= loanTerm)){
+        // подставляем все значения в формулу и делаем расчет
+        // ! не забывае перевести процентную ставку в число
+        resultMounthlyPayment = ((userInitialLoan-userDownPayment) * (interestRate / 1200) * Math.pow(1 + interestRate / 1200, userTotalMouns)) / (Math.pow(1 + interestRate / 1200, userTotalMouns) - 1);
+        resultCalc.innerHTML = resultMounthlyPayment.toFixed(2);
+    } else{
+        // показываем тескт ошибки если поля были заполнены неправильно
+        if(!(userInitialLoan >= minimumDownPayment)){
+            showError("Please provide a correct min Initial loan value.");
+        }
+        if(!(userInitialLoan <= maximumLoan)){
+            showError("Please provide a correct max Initial loan value.");
+        }
+        if(!(userTotalMouns <= loanTerm)){
+            showError("Please provide a correct Total months value.");
+        }
+        if(!(userTotalMouns > 0)){
+            showError("Please provide a correct Total months value.");
+        }
+    }
 
     return resultMounthlyPayment;
 }
@@ -164,42 +158,12 @@ function stringToArr(string) {
     return JSON.parse(string)
 }
 
-// устанавливаем максимальное и минимально значение в ползунках в зависимости отвыбраного банка
-function setValuesInputsRang() {
-
-    // считываем текущее значение банака с селект
-    let bankID = selectBank.value;
-
-    // загружаем текущий список банков и преобразовываем его в массив
-    let arrayListBanks = stringToArr(readDataLocalStorga());
-    let bankChoseUser = arrayListBanks[bankID];
-
-    // считываем значения с текущего банка (который показан нв стр.)
-    let interestRate = bankChoseUser[1];
-    let maximumLoan = bankChoseUser[2];
-    let minimumDownPayment = bankChoseUser[3];
-    let loanTerm = bankChoseUser[4];
-
-    // заменяем максимальное значение в ползунках
-    // устанавливаем максимальную сумму кредита
-    document.getElementById('userInitialLoan').setAttribute("max", maximumLoan);
-
-    // устанавливаем минимальный первоначальный взнос
-    document.getElementById('userDownPayment').setAttribute("min", minimumDownPayment);
-
-    // устанавливаем максимальный первоначальный взнос = максимальную сумму кредита
-    document.getElementById('userDownPayment').setAttribute("max", maximumLoan);
-
-    // устанавливаем максималное кол-во месяцев кредита
-    document.getElementById('userTotalMouns').setAttribute("max", loanTerm);
-
-    // устанавливаем первоначальные значения в ползунках и показываем значения
-    setCurrentValueInRange();
+function showError(textError){
+    messageError.style.display = "block";
+    messageError.innerHTML = textError;
 }
 
-// устанавливаем первоначальные значения в ползунках и показываем значения
-function setCurrentValueInRange() {
-    document.getElementById('valueInitialLoan').innerHTML = inputInitialLoan.getAttribute('min');
-    document.getElementById('valueDownPayment').innerHTML = userDownPayment.getAttribute('min');
-    document.getElementById('valueTotalMouns').innerHTML = inputDownPayment.getAttribute('min');
+function hideError(){
+    messageError.style.display = "none";
+    messageError.innerHTML = ""
 }

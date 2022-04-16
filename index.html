@@ -45,13 +45,13 @@
         <!-- Modal content -->
         <div class="modal-content">
             <span class="close">&times;</span>
-            <p>Some text in the Modal..</p>
+            <p>Add new bank</p>
             <form>
-                <input class="inputNewBank" type="text" placeholder="Bank Name" required>
-                <input class="inputNewBank" type="number" placeholder="Interest Rate" required>
-                <input class="inputNewBank" type="number" placeholder="Maximum Loan" required>
-                <input class="inputNewBank" type="number" placeholder="Minimum Down Payment" required>
-                <input class="inputNewBank" type="number" placeholder="Loan Term" required>
+                <div><p class="bankTitle">Bank Name</p><input class="inputNewBank" type="text" placeholder="Bank Name" required></div>
+                <div><p class="bankTitle">Interest Rate</p><input class="inputNewBank" type="number" placeholder="Interest Rate" required></div>
+                <div><p class="bankTitle">Maximum Loan</p><input class="inputNewBank" type="number" placeholder="Maximum Loan" required></div>
+                <div><p class="bankTitle">Minimum Down Payment</p><input class="inputNewBank" type="number" placeholder="Minimum Down Payment" required></div>
+                <div><p class="bankTitle">Loan Term</p><input class="inputNewBank" type="number" placeholder="Loan Term" required></div>
 
                 <input id="btnSaveNewBank" type="submit" value="save">
                 <button id="btnEditNewBank">edit</button>

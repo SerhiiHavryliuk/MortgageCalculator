@@ -30,33 +30,30 @@
 
             <div class="tableTitle">
                 <p class="bankName">Bank name</p>
-                <p class="InterestRate">Interest rate</p>
+                <p class="InterestRate">Interest rate %</p>
                 <p class="MaximumLoan">Maximum loan</p>
                 <p class="MinimumDownPayment">Minimum down payment</p>
-                <p class="LoanTerm">Loan term</p>
+                <p class="LoanTerm">Loan term, month</p>
             </div>
             <ol class="bankInfo"> </ol>
-            <br>
         
             <div class="container">
                 <p> Initial loan</p>
-                <input class="inputInitialLoan" type="range" id="userInitialLoan" name="points" min="1" max="10">
-                <div class="inputValue" id="valueInitialLoan">0</div>
+                <input type="number" class="inputInitialLoan" id="userInitialLoan" value="0">
             </div>
     
             <div class="container">
                 <p> Down payment</p>
-                <input class="inputDownPayment" type="range" id="userDownPayment" name="points" min="1" max="10">
-                <div class="inputValue" id="valueDownPayment">0</div>
+                <input type="number" class="inputDownPayment" id="userDownPayment" value="0">
             </div>
     
             <div class="container">
-                <p> Total mouns</p>
-                <input class="inputTotalMouns" type="range" id="userTotalMouns" name="points" min="1" max="10">
-                <div class="inputValue" id="valueTotalMouns">0</div>
+                <p> Total months</p>
+                <input type="number" class="inputTotalMouns" id="userTotalMouns" value="0">
             </div>
 
             <hr>
+            <div class="calcEror">Please provide a correct value.</div>
     
             <div class="container calcResult">
                 <p> Mounthly payment: <span class="resultCalc"></span></p>

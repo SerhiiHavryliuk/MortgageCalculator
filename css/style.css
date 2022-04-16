@@ -838,7 +838,7 @@ p{
 }
 
 .bank-table {
-    padding: 25px;
+    padding: 25px 25px 10px 25px;
     color: #000;
     background-color: #fff;
     border-radius: 4px;
@@ -871,6 +871,7 @@ p{
 /* // по умолчанию скрываю кнопку edit в модальном окне */
 #btnEditNewBank{
     display: none;
+    border: none;
 }
 
 .editBank, #btnEditNewBank{
@@ -896,6 +897,7 @@ p{
     height: 38px;
     padding: 10px;
     margin: 2px;
+    border: none;
 }
 
 .tableTitle{
@@ -965,7 +967,7 @@ p{
   .container{
       display: flex;
       justify-content: space-around;
-      margin: 20px 0;
+      margin: 14px 0;
   }
 
   .container p{
@@ -988,6 +990,15 @@ p{
 
 .calcResult{
     justify-content: space-between;
-    color: #d33c40;
+    color: darkcyan;
     font-size: 1.2rem;
+}
+
+.bankTitle{
+    font-weight: bold;
+}
+
+.calcEror{
+    display: none;
+    color: red;
 }
